@@ -1,21 +1,174 @@
-# 数据目录
+# Data 目录说明
 
-## 结构
+本目录包含心理健康助手项目的心理学知识库文档，用于 ChromaDB 向量检索（RAG）。
+
+- **psychology_kb/** — 心理学知识库文档（txt 格式，带 YAML frontmatter）
+
+---
+
+## 心理学知识库（psychology_kb/）
+
+### 概览
+
+| 统计项 | 数值 |
+|--------|------|
+| **文档总数** | 20 篇 |
+| **总字数** | 约 45,000 字 |
+| **来源数量** | 5 个 |
+| **最后更新** | 2026-07-22 |
+
+### 文档格式规范
+
+所有知识库文档统一采用以下格式（详见 `docs/KB_FORMAT.md`）：
+
+```yaml
+---
+title: 文章标题
+keywords: 关键词1, 关键词2, 关键词3
+---
+
+# 文章标题
+
+正文内容...
+
+来源：来源名称
+链接：原文链接
+```
+
+### 来源分布
+
+| 来源 | 数量 | 文件名前缀 | 说明 |
+|------|------|-----------|------|
+| 世界卫生组织（WHO） | 6 篇 | `who_` | 世界精神卫生报告权威内容 |
+| 壹心理 | 4 篇 | `yixinli_` | 大众心理学科普文章 |
+| 丁香医生/丁香园 | 4 篇 | `dxy_` | 医学科普与学术研究 |
+| 知乎 | 3 篇 | `zhihu_` | 个人经验与观点分享 |
+| 简单心理 | 3 篇 | `jiandanxinli_` | 专业心理咨询科普 |
+
+### 主题分类
+
+#### 1. 心理健康基础（WHO 系列）
+
+| 文件名 | 主题 | 字数 |
+|--------|------|------|
+| `who_mental_health_concept_20260722.txt` | 心理健康的概念与重要性 | ~1.2k |
+| `who_mental_health_determinants_20260722.txt` | 心理健康的决定因素 | ~1.4k |
+| `who_global_mental_health_status_20260722.txt` | 全球精神卫生现状 | ~1.9k |
+| `who_mental_health_promotion_prevention_20260722.txt` | 心理健康促进和预防 | ~2.5k |
+| `who_community_mental_health_20260722.txt` | 社区心理健康服务 | ~2.8k |
+| `who_digital_mental_health_20260722.txt` | 数字技术在心理健康服务中的应用 | ~2.7k |
+
+#### 2. 常见心理疾病
+
+| 文件名 | 主题 | 来源 |
+|--------|------|------|
+| `dxy_depression_disorder_20260722.txt` | 抑郁症（抑郁障碍） | 丁香医生 |
+| `dxy_anxiety_disorder_20260722.txt` | 焦虑障碍（焦虑症） | 丁香医生 |
+| `dxy_insomnia_disorder_20260722.txt` | 失眠（失眠障碍） | 丁香医生 |
+| `yixinli_depression_thinking_20260722.txt` | 如何识别抑郁症的思维模式 | 壹心理 |
+| `zhihu_high_functioning_depression_20260722.txt` | 高功能抑郁症 / 空心病 | 知乎 |
+
+#### 3. 精神分裂症
+
+| 文件名 | 主题 | 来源 |
+|--------|------|------|
+| `yixinli_schizophrenia_help_20260722.txt` | 如何帮助精神分裂症患者 | 壹心理 |
+| `dxy_schizophrenia_relapse_20260722.txt` | 中国精神分裂症患者复发影响因素Meta分析 | 丁香园 |
+
+#### 4. 原生家庭与成长
+
+| 文件名 | 主题 | 来源 |
+|--------|------|------|
+| `zhihu_parental_conflict_20260722.txt` | 父母冲突对孩子的影响 | 知乎 |
+| `jiandanxinli_relationship_self_help_20260722.txt` | 亲密关系中的自救 | 简单心理 |
+
+#### 5. 情绪与自我调节
+
+| 文件名 | 主题 | 来源 |
+|--------|------|------|
+| `jiandanxinli_emotional_verbalization_20260722.txt` | 情感言语化 / 情绪表达 | 简单心理 |
+| `jiandanxinli_cleaning_mental_health_20260722.txt` | 打扫房间与心理健康 | 简单心理 |
+| `yixinli_procrastination_adhd_20260722.txt` | 拖延症与 ADHD | 壹心理 |
+| `zhihu_victim_mentality_20260722.txt` | 受害者思维与心态调整 | 知乎 |
+
+#### 6. 社会与老年心理
+
+| 文件名 | 主题 | 来源 |
+|--------|------|------|
+| `yixinli_elderly_social_guide_20260722.txt` | 空巢老人社交重建指南 | 壹心理 |
+
+---
+
+## 知识库主题覆盖
+
+### 已覆盖主题
+
+- ✅ 心理健康基础概念与定义
+- ✅ 心理健康的社会、心理、生物决定因素
+- ✅ 全球精神卫生流行病学数据
+- ✅ 抑郁症、焦虑症、失眠等常见心理障碍
+- ✅ 精神分裂症（症状、治疗、复发因素）
+- ✅ 高功能抑郁症 / 空心病
+- ✅ 原生家庭与父母冲突的影响
+- ✅ 亲密关系与自我成长
+- ✅ 情绪调节与情感言语化
+- ✅ 拖延症与 ADHD
+- ✅ 受害者思维与认知调整
+- ✅ 心理健康促进与预防策略
+- ✅ 社区心理健康服务模式
+- ✅ 数字心理健康技术
+- ✅ 老年人心理健康
+- ✅ 污名化与社会支持
+
+### 建议补充方向
+
+- 儿童青少年心理健康
+- 创伤后应激障碍（PTSD）
+- 进食障碍
+- 物质使用与成瘾
+- 自杀预防与危机干预
+- 正念冥想与心理治疗方法
+- 职场心理健康
+
+---
+
+## 文件命名规范
+
+知识库文件统一使用以下命名格式：
 
 ```
-data/
-├── psychology_kb/   # 心理学知识库 txt 文件（王兴国收集）
-└── chroma_db/       # ChromaDB 持久化向量索引（自动生成，不提交）
+{来源前缀}_{主题描述}_{日期}.txt
 ```
 
-## 知识库来源（参考）
+**来源前缀：**
+- `who_` — 世界卫生组织
+- `yixinli_` — 壹心理
+- `dxy_` — 丁香医生/丁香园
+- `jiandanxinli_` — 简单心理
+- `zhihu_` — 知乎
 
-- 壹心理 (xinli001.com)
-- 丁香园心理学板块 (dxy.cn)
-- 简单心理 (jiandanxinli.com)
-- WHO 心理健康手册
+**示例：**
+- `who_mental_health_concept_20260722.txt`
+- `dxy_depression_disorder_20260722.txt`
+- `yixinli_procrastination_adhd_20260722.txt`
 
-## 注意
+---
 
-- `chroma_db/` 已在 `.gitignore` 中排除
-- 知识库 txt 格式见 `docs/KB_FORMAT.md`
+## 构建向量索引
+
+新增/修改知识库文档后，运行以下命令构建 ChromaDB 索引：
+
+```bash
+cd backend
+python scripts/build_kb.py
+```
+
+清空并重建：
+
+```bash
+python scripts/build_kb.py --rebuild
+```
+
+---
+
+*最后更新：2026-07-23*

@@ -1,49 +1,44 @@
 """
-情绪分析服务 — 封装 BERT 模型的推理流程
+情绪分析服务 — 使用千问做情绪识别（已移除 BERT 方案）
 """
+import logging
 
-from ml_models.emotion import predict_emotion
-from ml_models.emotion_config import EMOTION_LABELS, LABEL_INDEX
+from services.llm_service import analyze_emotion_with_qwen
+from prompts.templates import ZH_TO_EN
+
+logger = logging.getLogger(__name__)
 
 
 def analyze_emotion(text: str) -> dict:
     """
-    对一段中文文本做情绪分类，返回情绪标签和置信度。
+    对一段中文文本做情绪分类。
 
-    返回格式:
+    返回格式（与旧 BERT 方案完全兼容）:
     {
-        "emotion": "焦虑",       # 中文标签
-        "label": "anxiety",      # 英文标签
-        "score": 0.87,           # 最高分
-        "confidence": 0.92,      # softmax 置信度
+        "emotion": "焦虑",
+        "label": "anxiety",
+        "score": 0.87,
+        "confidence": 0.87,     ← 与 score 同值，保留兼容
         "top3": [
             {"label": "焦虑", "score": 0.87},
-            {"label": "悲伤", "score": 0.06},
-            {"label": "愤怒", "score": 0.03},
+            {"label": "悲伤", "score": 0.87},
+            {"label": "愤怒", "score": 0.87},
         ]
     }
     """
-    # 调用 BERT 模型做预测
-    probs = predict_emotion(text)
+    result = analyze_emotion_with_qwen(text)
 
-    # 取 top3
-    indexed = [(i, score) for i, score in enumerate(probs)]
-    indexed.sort(key=lambda x: x[1], reverse=True)
-    top3 = indexed[:3]
+    emo_zh = result.get("emotion", "平静")
+    score = result.get("score", 0.5)
+    label_en = ZH_TO_EN.get(emo_zh, "calm")
 
-    top_label_idx = top3[0][0]
+    # 千问只返回一个情绪，top3 用同一结果填充以保持接口兼容
+    single = {"label": emo_zh, "score": score}
 
-    result = {
-        "emotion": EMOTION_LABELS.get(top_label_idx, "未知"),
-        "label": LABEL_INDEX.get(top_label_idx, "unknown"),
-        "score": round(float(top3[0][1]), 4),
-        "confidence": round(float(top3[0][1]), 4),
-        "top3": [
-            {
-                "label": EMOTION_LABELS.get(idx, "未知"),
-                "score": round(float(score), 4),
-            }
-            for idx, score in top3
-        ],
+    return {
+        "emotion": emo_zh,
+        "label": label_en,
+        "score": score,
+        "confidence": score,
+        "top3": [single, single, single],
     }
-    return result

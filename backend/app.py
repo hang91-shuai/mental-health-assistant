@@ -6,6 +6,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from config.settings import settings
+from utils.response import success
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +24,6 @@ app.register_blueprint(chat_bp)
 @app.route("/api/ping")
 def ping():
     """连通性测试"""
-    from utils.response import success
     return success({"status": "ok", "message": "server running"})
 
 

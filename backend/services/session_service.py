@@ -9,8 +9,6 @@ import uuid
 from config.settings import settings
 
 
-_EMPTY = object()
-
 _sessions: dict = {}              # { session_id: {"history":[...], "last_active": timestamp} }
 _lock = threading.Lock()
 

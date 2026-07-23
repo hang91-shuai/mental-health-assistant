@@ -4,16 +4,9 @@
 
 ```
 data/
-├── datasets/        # BERT 微调用情绪分类数据集（王兴国收集）
 ├── psychology_kb/   # 心理学知识库 txt 文件（王兴国收集）
 └── chroma_db/       # ChromaDB 持久化向量索引（自动生成，不提交）
 ```
-
-## 数据集来源（参考）
-
-- HuggingFace: 搜索 "chinese emotion dataset"
-- NLPCC 情感分析评测数据
-- SMP 中文情感分析评测
 
 ## 知识库来源（参考）
 

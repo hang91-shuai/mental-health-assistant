@@ -20,8 +20,8 @@ class Settings:
     OLLAMA_MODEL: str = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
     OLLAMA_TIMEOUT: int = int(os.getenv("OLLAMA_TIMEOUT", 60))
 
-    # ---- BERT 情绪识别 ----
-    BERT_MODEL: str = os.getenv("BERT_MODEL", "bert-base-chinese")
+    # ---- Embedding 模型（RAG 向量化） ----
+    EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "BAAI/bge-small-zh-v1.5")
     HF_ENDPOINT: str = os.getenv("HF_ENDPOINT", "https://hf-mirror.com")
 
     # ---- ChromaDB ----

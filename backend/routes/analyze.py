@@ -1,10 +1,10 @@
 """
 情绪分析接口 — POST /api/analyze
 """
-
 from flask import Blueprint, request
 
-from utils.response import success, bad_request
+from services.emotion_service import analyze_emotion
+from utils.response import success, bad_request, error
 
 analyze_bp = Blueprint("analyze", __name__)
 
@@ -22,9 +22,7 @@ def analyze():
         return bad_request("text 不能超过 500 字")
 
     try:
-        from services.emotion_service import analyze_emotion
         result = analyze_emotion(text)
         return success(data=result)
     except Exception as e:
-        from utils.response import error
         return error(f"情绪分析失败: {str(e)}")

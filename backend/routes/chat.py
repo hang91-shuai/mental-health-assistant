@@ -2,10 +2,13 @@
 对话接口 — POST /api/chat
 一次请求完成：情绪分析 + RAG检索 + 千问回复
 """
-
 from flask import Blueprint, request
 
-from utils.response import success, bad_request
+from services.emotion_service import analyze_emotion
+from services.rag_service import search_knowledge
+from services.session_service import get_or_create_session, add_message
+from services.llm_service import chat_with_qwen
+from utils.response import success, bad_request, error
 
 chat_bp = Blueprint("chat", __name__)
 
@@ -26,20 +29,17 @@ def chat():
 
     try:
         # 1. 情绪分析
-        from services.emotion_service import analyze_emotion
         emotion_result = analyze_emotion(message)
 
         # 2. RAG 检索
-        from services.rag_service import search_knowledge
         knowledge = search_knowledge(message)
 
         # 3. 对话历史
-        from services.session_service import get_or_create_session, add_message
         session = get_or_create_session(session_id)
         context = session["history"]
+        session_id = session["session_id"]
 
         # 4. 调用千问
-        from services.llm_service import chat_with_qwen
         reply = chat_with_qwen(
             message=message,
             emotion=emotion_result,
@@ -48,8 +48,8 @@ def chat():
         )
 
         # 5. 保存对话
-        session_id, _ = add_message(session_id, "user", message)
-        _, _ = add_message(session_id, "assistant", reply)
+        add_message(session_id, "user", message)
+        add_message(session_id, "assistant", reply)
 
         return success(data={
             "reply": reply,
@@ -59,5 +59,4 @@ def chat():
         })
 
     except Exception as e:
-        from utils.response import error
         return error(f"对话处理失败: {str(e)}")

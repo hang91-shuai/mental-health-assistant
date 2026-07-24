@@ -1,0 +1,2 @@
+<button bindtap="testApi">点我测试后端接口</button>
+<text>结果：{{msg}}</text>

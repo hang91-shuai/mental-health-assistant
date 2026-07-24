@@ -24,7 +24,12 @@ app.register_blueprint(chat_bp)
 @app.route("/api/ping")
 def ping():
     """连通性测试"""
-    return success({"status": "ok", "message": "server running"})
+    return success({
+        "status": "ok",
+        "message": "server running",
+        "ollama_model": settings.OLLAMA_MODEL,
+        "ollama_url": settings.OLLAMA_BASE_URL,
+    })
 
 
 if __name__ == "__main__":

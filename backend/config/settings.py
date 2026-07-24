@@ -3,9 +3,11 @@
 """
 
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+# 显式指定 .env 路径，避免 CWD 变化导致找不到
+load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=True)
 
 
 class Settings:

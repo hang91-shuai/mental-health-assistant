@@ -14,6 +14,7 @@ def _call_ollama(prompt: str, system: str = "", temperature: float = 0.7, max_to
     底层 Ollama 调用，所有上层方法共用。
     返回原始文本，出错返回空字符串。
     """
+    logger.debug("_call_ollama model=%s url=%s", settings.OLLAMA_MODEL, settings.OLLAMA_BASE_URL)
     try:
         resp = requests.post(
             f"{settings.OLLAMA_BASE_URL}/api/generate",

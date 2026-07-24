@@ -26,6 +26,7 @@ def analyze_emotion(text: str) -> dict:
         ]
     }
     """
+    logger.debug("analyze_emotion called with text length=%d", len(text))
     result = analyze_emotion_with_qwen(text)
 
     emo_zh = result.get("emotion", "平静")
